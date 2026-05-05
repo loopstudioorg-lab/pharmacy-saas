@@ -15,6 +15,9 @@ public static class AppConstants
     public const int DefaultMachineLimit = 1;
     public const int OfflineGracePeriodDays = 7;
 
+    public const string DefaultExpressConnection =
+        @"Server=.\SQLEXPRESS;Database=PharmacySaas;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=False;";
+
     public const string DefaultLocalDbConnection =
         @"Server=(localdb)\MSSQLLocalDB;Database=PharmacySaas;Trusted_Connection=True;TrustServerCertificate=True;";
 

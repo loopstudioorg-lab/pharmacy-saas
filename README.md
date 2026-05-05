@@ -46,7 +46,7 @@ The desktop app uses WPF, which **only builds and runs on Windows**. Code on mac
 |---|---|
 | .NET SDK | 8.0 (LTS recommended) - [download](https://dotnet.microsoft.com/download/dotnet/8.0) |
 | Visual Studio 2022 | Community+ with `.NET desktop development` workload (Windows machine) |
-| SQL Server LocalDB or Express | LocalDB ships with VS; standalone download [here](https://aka.ms/get-localdb) (Windows machine) |
+| SQL Server Express (default) or LocalDB | Default connection string in [`appsettings.json`](src/PMS.Desktop/appsettings.json) targets `.\SQLEXPRESS`. Edit it for LocalDB if you prefer. |
 | Inno Setup 6 | only required for local installer build, CI installs it automatically |
 
 ## Local commands

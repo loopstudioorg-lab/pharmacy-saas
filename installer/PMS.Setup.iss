@@ -66,7 +66,7 @@ Filename: "{app}\{#AppExeName}"; Description: "Launch {#AppName}"; Flags: nowait
 ; Users can manually delete that folder if they want a full reset.
 
 [Messages]
-WelcomeLabel2=This will install [name/ver] on your computer.%n%nPharmacy Saas is an offline-first Pharmacy ERP. Sales, purchases, stock and reports work without internet.%n%nNote: This Phase 1 build expects SQL Server LocalDB or Express. If LocalDB is not installed, please install it from Microsoft (https://aka.ms/get-localdb) before launching the app.%n%nClick Next to continue.
+WelcomeLabel2=This will install [name/ver] on your computer.%n%nPharmacy Saas is an offline-first Pharmacy ERP. Sales, purchases, stock and reports work without internet.%n%nNote: This build connects to SQL Server Express on the local machine (.\\SQLEXPRESS by default). Make sure SQL Server Express is installed before launching the app.%n%nClick Next to continue.
 
 [Code]
 function InitializeSetup(): Boolean;
