@@ -1,0 +1,104 @@
+<Window x:Class="PMS.Desktop.Views.ShellWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:PMS.Desktop.Views"
+        Title="Pharmacy Saas"
+        Style="{StaticResource WindowChromeStyle}"
+        Width="1280" Height="800"
+        MinWidth="1024" MinHeight="640"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Style="{StaticResource TopBar}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="240"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Background="{StaticResource PrimaryBrush}" Width="32" Height="32" CornerRadius="6" Margin="0,0,10,0">
+                        <TextBlock Text="P" Foreground="White" FontWeight="Bold"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <StackPanel>
+                        <TextBlock Text="{Binding PharmacyName}" Style="{StaticResource SubheadingText}"/>
+                        <TextBlock Text="Pharmacy Saas" Style="{StaticResource CaptionText}"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Style="{StaticResource StatusPill}" Margin="0,0,8,0">
+                        <TextBlock Text="{Binding ConnectivityState}" Foreground="{StaticResource PrimaryBrush}" FontSize="12" FontWeight="SemiBold"/>
+                    </Border>
+                    <Border Style="{StaticResource StatusPill}" Background="#E8F5E9" Margin="0,0,8,0">
+                        <TextBlock Text="{Binding LicenseBadge}" Foreground="{StaticResource SuccessBrush}" FontSize="12" FontWeight="SemiBold"/>
+                    </Border>
+                    <Border Style="{StaticResource StatusPill}" Background="#FFF3E0" Margin="0,0,16,0">
+                        <TextBlock Text="{Binding SyncState}" Foreground="{StaticResource WarningBrush}" FontSize="12" FontWeight="SemiBold"/>
+                    </Border>
+
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="0,0,16,0">
+                        <TextBlock Text="{Binding UserFullName}" FontWeight="SemiBold"/>
+                        <TextBlock Text="{Binding UserRole}" Style="{StaticResource CaptionText}" HorizontalAlignment="Right"/>
+                    </StackPanel>
+                    <Button Content="Logout" Style="{StaticResource SecondaryButton}" Command="{Binding LogoutCommand}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource Sidebar}">
+                <StackPanel Margin="0,16,0,0">
+                    <Button Content="Dashboard" Style="{StaticResource SidebarButton}"
+                            Command="{Binding NavDashboardCommand}" Tag="active"/>
+                    <Button Content="Sales POS" Style="{StaticResource SidebarButton}"
+                            Command="{Binding NavComingNextCommand}"/>
+                    <Button Content="Purchases" Style="{StaticResource SidebarButton}"
+                            Command="{Binding NavComingNextCommand}"/>
+                    <Button Content="Stock" Style="{StaticResource SidebarButton}"
+                            Command="{Binding NavComingNextCommand}"/>
+                    <Button Content="Medicines" Style="{StaticResource SidebarButton}"
+                            Command="{Binding NavComingNextCommand}"/>
+                    <Button Content="Suppliers" Style="{StaticResource SidebarButton}"
+                            Command="{Binding NavComingNextCommand}"/>
+                    <Button Content="Customers" Style="{StaticResource SidebarButton}"
+                            Command="{Binding NavComingNextCommand}"/>
+                    <Button Content="Accounts" Style="{StaticResource SidebarButton}"
+                            Command="{Binding NavComingNextCommand}"/>
+                    <Button Content="Reports" Style="{StaticResource SidebarButton}"
+                            Command="{Binding NavComingNextCommand}"/>
+                    <Border Height="1" Background="{StaticResource DividerBrush}" Margin="20,12"/>
+                    <Button Content="Settings" Style="{StaticResource SidebarButton}"
+                            Command="{Binding NavSettingsCommand}"/>
+                </StackPanel>
+            </Border>
+
+            <ContentControl x:Name="ContentHost" Grid.Column="1" Margin="0"/>
+        </Grid>
+
+        <Border Grid.Row="2" Style="{StaticResource StatusBar}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Style="{StaticResource CaptionText}"
+                           Text="{Binding NowText}"/>
+                <TextBlock Grid.Column="1" Style="{StaticResource CaptionText}"
+                           Text="Pharmacy Saas v0.1.0  |  Phase 1 Foundation"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,71 @@
+<Window x:Class="PMS.Desktop.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Pharmacy Saas - Login"
+        Style="{StaticResource WindowChromeStyle}"
+        Width="900" Height="600"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="420"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="{StaticResource PrimaryBrush}">
+            <StackPanel Margin="48" VerticalAlignment="Center">
+                <TextBlock Text="Pharmacy Saas"
+                           FontSize="34" FontWeight="SemiBold"
+                           Foreground="White"/>
+                <TextBlock Text="Offline-first Pharmacy ERP"
+                           FontSize="14"
+                           Foreground="#DCE0F5"
+                           Margin="0,8,0,28"/>
+                <TextBlock Text="Built for fast counter sales, accurate stock, expiry safety and trusted reports - even without internet."
+                           TextWrapping="Wrap"
+                           FontSize="14"
+                           Foreground="#E8EAF6"
+                           LineHeight="22"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1" Background="{StaticResource SurfaceBrush}">
+            <StackPanel Margin="48" VerticalAlignment="Center">
+                <TextBlock Text="Sign in"
+                           Style="{StaticResource HeadingLargeText}"
+                           Margin="0,0,0,4"/>
+                <TextBlock Text="Use your owner or staff account."
+                           Style="{StaticResource CaptionText}"
+                           Margin="0,0,0,28"/>
+
+                <TextBlock Text="Username" Style="{StaticResource FieldLabel}"/>
+                <TextBox Style="{StaticResource PrimaryTextBox}"
+                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0,0,0,16"/>
+
+                <TextBlock Text="Password" Style="{StaticResource FieldLabel}"/>
+                <PasswordBox x:Name="PasswordInput" Style="{StaticResource PrimaryPasswordBox}"
+                             KeyDown="OnPasswordKeyDown"/>
+
+                <TextBlock Text="{Binding ErrorMessage}"
+                           Foreground="{StaticResource DangerBrush}"
+                           Style="{StaticResource CaptionText}"
+                           TextWrapping="Wrap"
+                           Margin="0,12,0,0"/>
+
+                <Button Content="Sign in"
+                        Style="{StaticResource PrimaryButton}"
+                        Click="OnLoginClick"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBool}}"
+                        Margin="0,20,0,0"
+                        HorizontalAlignment="Stretch"/>
+
+                <Button Content="Exit"
+                        Style="{StaticResource LinkButton}"
+                        Click="OnExitClick"
+                        Margin="0,16,0,0"
+                        HorizontalAlignment="Right"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

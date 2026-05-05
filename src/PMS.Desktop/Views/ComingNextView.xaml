@@ -1,0 +1,15 @@
+<UserControl x:Class="PMS.Desktop.Views.ComingNextView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="32,28">
+        <Border Style="{StaticResource Card}" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <StackPanel>
+                <Border Background="{StaticResource PrimaryLightBrush}" CornerRadius="6" Padding="10,4" HorizontalAlignment="Left">
+                    <TextBlock Text="UPCOMING PHASE" FontSize="11" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}"/>
+                </Border>
+                <TextBlock Text="{Binding Heading}" Style="{StaticResource HeadingLargeText}" Margin="0,12,0,8"/>
+                <TextBlock Text="{Binding Description}" Style="{StaticResource BodyText}" TextWrapping="Wrap" LineHeight="22"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

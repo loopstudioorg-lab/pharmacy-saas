@@ -1,0 +1,59 @@
+---
+description: Project-wide coding conventions for the Pharmacy Saas codebase.
+alwaysApply: true
+---
+
+# Pharmacy Saas - Coding Conventions
+
+## Architecture rules
+
+- Layered: UI (PMS.Desktop) -> Service (PMS.Services) -> Repository / EF DbContext / Dapper (PMS.Data) -> SQL Server
+- UI never touches DbContext or repositories directly. Always go through a service.
+- Services live in PMS.Services; abstractions live in PMS.Core/Abstractions.
+- Cross-cutting concerns (hashing, encryption, fingerprint, license signing) live in PMS.Security.
+
+## Database rules
+
+- Every table is prefixed `tbl_`.
+- Every operational table includes:
+  - `Id INT IDENTITY PRIMARY KEY`
+  - `RecordGuid UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID()` (sync key)
+  - Audit fields: `IsActive`, `SaveDate`, `SavedBy`, `UpdatedDate`, `UpdatedBy`
+  - `IsSynced BIT NOT NULL DEFAULT 0` where the row participates in sync
+  - `BranchId INT NULL FK tbl_Branches(Id)` where multi-branch matters
+- Schema changes ship as numbered SQL scripts (`00X_*.sql`) in PMS.Database/Scripts and are applied idempotently by `SqlScriptRunner` on app start. `tbl_SchemaVersion` tracks applied scripts.
+- Soft-delete only - never hard delete a domain row. Admin recycle bin (`tbl_RecycleBin`) restores.
+
+## Service rules
+
+- Every mutation must call `IAuditService.LogAsync(...)`.
+- Every UI screen must check `IPermissionService.CanAccessAsync(module, permission)` and `IPermissionService.IsModuleEnabledAsync(pharmacy, module)`.
+- Use `IClock` for `DateTime.UtcNow` so we can fake time in tests.
+- Hot paths (POS, reports) use Dapper via `IDbConnectionFactory`. Admin / setup / CRUD uses EF Core (`PharmacyDbContext`).
+
+## Security rules
+
+- Never store plaintext passwords. Use `IPasswordHasher` (BCrypt-backed).
+- Never construct `AesGcm` directly outside `AesEncryptionService`.
+- License files are encrypted + signed; the signature MUST be verified on every read.
+- Audit every security event (login success/failure, license create/renew, machine register/replace, password change, role change, backup restore).
+
+## UI rules
+
+- WPF + MVVM via CommunityToolkit.Mvvm (`[ObservableProperty]`, `[RelayCommand]`).
+- No business logic in event handlers / code-behind. Code-behind only bridges things WPF cannot bind (e.g. `PasswordBox.Password`).
+- Reuse `IDialogService` for messages; never call `MessageBox.Show` directly from view models.
+- Theme tokens live in `Theme/Colors.xaml`; no inline hex colors in views.
+
+## Naming
+
+- Project namespaces: `PMS.<Layer>` (e.g. `PMS.Services`, `PMS.Security`).
+- Async methods always end in `Async` and return `Task` / `Task<T>`.
+- Interfaces start with `I`. Constants live in static classes under `PMS.Core/Constants`.
+- Permission keys, module keys, role keys come from `PMS.Core.Constants` - do not hardcode strings.
+
+## Module / phase discipline
+
+- Phase gates are enforced. No medicines/sales/purchases/reports code in Phase 1.
+- New features added behind a module flag (`tbl_ModuleSettings`) when the blueprint marks them gated.
+- License tier mapping (Basic/Standard/Premium) lives in `LicenseService`, not scattered.

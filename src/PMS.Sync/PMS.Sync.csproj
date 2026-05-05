@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>PMS.Sync</RootNamespace>
+    <AssemblyName>PMS.Sync</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PMS.Core\PMS.Core.csproj" />
+    <ProjectReference Include="..\PMS.Data\PMS.Data.csproj" />
+  </ItemGroup>
+</Project>
